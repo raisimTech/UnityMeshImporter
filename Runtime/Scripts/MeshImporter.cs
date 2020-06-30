@@ -83,7 +83,7 @@ namespace UnityMeshImporter
                             m.ColorDiffuse.B,
                             m.ColorDiffuse.A
                         );
-                        uMaterial.color = color;
+                        uMaterial.SetColor("_Color", color);
                     }
 
                     // Emission
