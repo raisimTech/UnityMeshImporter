@@ -83,7 +83,7 @@ namespace UnityMeshImporter
                             m.ColorDiffuse.B,
                             m.ColorDiffuse.A
                         );
-                        uMaterial.SetColor("_Color", color);
+                        uMaterial.SetColor("_BaseColor", color);
                     }
 
                     // Emission
@@ -102,7 +102,7 @@ namespace UnityMeshImporter
                     // Reflectivity
                     if (m.HasReflectivity)
                     {
-                        uMaterial.SetFloat("_Glossiness", m.Reflectivity);
+                        uMaterial.SetFloat("_Metallic", m.Reflectivity);
                     }
                     
                     // Texture
@@ -118,7 +118,7 @@ namespace UnityMeshImporter
                             throw new Exception("Cannot find texture file: " + texturePath);
                         }
                         
-                        uMaterial.SetTexture("_MainTex", uTexture);
+                        uMaterial.SetTexture("_BaseColorMap", uTexture);
                     }
 
                     uMaterials.Add(uMaterial);
