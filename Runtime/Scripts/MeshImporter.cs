@@ -72,7 +72,7 @@ namespace UnityMeshImporter
             {
                 foreach (var m in scene.Materials)
                 {
-                    UnityEngine.Material uMaterial = new UnityEngine.Material(Shader.Find("HDRP/Lit"));
+                    UnityEngine.Material uMaterial = new UnityEngine.Material(Shader.Find("Standard"));
 
                     // Albedo
                     if (m.HasColorDiffuse)
