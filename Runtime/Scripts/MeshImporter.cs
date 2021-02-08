@@ -54,21 +54,20 @@ namespace UnityMeshImporter
     
     public class MeshImporter
     {
-	private string _defaultShader;
-	private string _colorString;
-
-        public static GameObject Load(string meshPath, float scaleX=1, float scaleY=1, float scaleZ=1)
+        public static GameObject Load(string meshPath, float scaleX=1, float scaleY=1, float scaleZ=1, bool hdrp=true)
         {
             if(!File.Exists(meshPath))
                 return null;
 
+			string _defaultShader;
+			string _colorString;
             AssimpContext importer = new AssimpContext();
             Scene scene = importer.ImportFile(meshPath);
             if (scene == null)
                 return null;
 
             
-            if (GraphicsSettings.renderPipelineAsset is HDRenderPipelineAsset)
+            if (hdrp)
             {
                 _defaultShader = "HDRP/Lit";
                 _colorString = "_BaseColor";
@@ -257,3 +256,4 @@ namespace UnityMeshImporter
         }
     }
 }
+
