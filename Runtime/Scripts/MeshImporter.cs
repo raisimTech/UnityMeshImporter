@@ -54,6 +54,9 @@ namespace UnityMeshImporter
     
     public class MeshImporter
     {
+	private string _defaultShader;
+	private string _colorString;
+
         public static GameObject Load(string meshPath, float scaleX=1, float scaleY=1, float scaleZ=1)
         {
             if(!File.Exists(meshPath))
@@ -63,7 +66,19 @@ namespace UnityMeshImporter
             Scene scene = importer.ImportFile(meshPath);
             if (scene == null)
                 return null;
+
             
+            if (GraphicsSettings.renderPipelineAsset is HDRenderPipelineAsset)
+            {
+                _defaultShader = "HDRP/Lit";
+                _colorString = "_BaseColor";
+            }
+            else
+            {
+                _defaultShader = "Standard";
+                _colorString = "_Color";
+            }
+
             string parentDir = Directory.GetParent(meshPath).FullName;
 
             // Materials
@@ -72,7 +87,7 @@ namespace UnityMeshImporter
             {
                 foreach (var m in scene.Materials)
                 {
-                    UnityEngine.Material uMaterial = new UnityEngine.Material(Shader.Find("HDRP/Lit"));
+                    UnityEngine.Material uMaterial = new UnityEngine.Material(Shader.Find(_defaultShader));
 
                     // Albedo
                     if (m.HasColorDiffuse)
@@ -83,7 +98,7 @@ namespace UnityMeshImporter
                             m.ColorDiffuse.B,
                             m.ColorDiffuse.A
                         );
-                        uMaterial.SetColor("_BaseColor", color);
+                        uMaterial.SetColor(_colorString, color);
                     }
 
                     // Emission
