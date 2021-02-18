@@ -193,6 +193,7 @@ namespace UnityMeshImporter
                     }
                 
                     UnityEngine.Mesh uMesh = new UnityEngine.Mesh();
+		    uMesh.indexFormat = IndexFormat.UInt32;
                     uMesh.vertices = uVertices.ToArray();
                     uMesh.normals = uNormals.ToArray();
                     uMesh.triangles = uIndices.ToArray();
